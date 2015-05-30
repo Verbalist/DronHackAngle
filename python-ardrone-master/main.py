@@ -2,6 +2,7 @@ __author__ = 'dima'
 
 import libardrone
 import pygame
+import move
 
 f = open('log.txt','a\n')
 
@@ -10,7 +11,7 @@ W, H = 320, 240
 screen = pygame.display.set_mode((W, H))
 clock = pygame.time.Clock()
 
-drone = libardrone.ARDrone()
+drone = move.Drone()
 drone.reset()
 drone.takeoff()
 
