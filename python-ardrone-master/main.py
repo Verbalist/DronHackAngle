@@ -17,6 +17,7 @@ def move_in_m(drone, count, clock):
     while (i < count):
         drone.move_forward()
         clock.tick(50)
+        i+=1
 
 
 running = True
@@ -52,16 +53,33 @@ while running:
                     print('reset')
                 if event.key == pygame.K_w:
                     drone.move_forward()
-
+                    print('forward')
+                if event.key == pygame.K_s:
+                    drone.move_backward()
+                    print('back')
+                if event.key == pygame.K_a:
+                    drone.move_left()
+                    print('left')
+                if event.key == pygame.K_d:
+                    drone.move_right()
+                    print('right')
+                if event.key == pygame.K_w:
+                    drone.move_forward()
+                if event.key == pygame.K_LEFT:
+                    drone.turn_left()
+                    print('left')
+                if event.key == pygame.K_RIGHT:
+                    drone.turn_right()
+                    print('right')
                 if event.key == pygame.K_LCTRL:
                     bat = drone.navdata.get(0, dict()).get('battery', 0)
                     print(bat)
 
-        try:
-            clock.tick(50)
-
-        except:
-            print('err')
+        # try:
+        #     clock.tick(50)
+        #
+        # except:
+        #     print('err')
 
 #end demonstration
 drone.land()
