@@ -1,6 +1,7 @@
 __author__ = 'dima'
 
 import libardrone
+import math
 
 class Drone(libardrone.ARDrone):
 
@@ -30,13 +31,13 @@ class Drone(libardrone.ARDrone):
         self.at(libardrone.at_ref, False)
         self.z = 0
 
-    def move_right(self, n):
+    def move_right_n(self, n):
         """Make the drone move right."""
         for i in n:
             self.at(libardrone.at_pcmd, True, self.speed, 0, 0, 0)
             self.clock.tick(50)
 
-    def turn_left(self, n):
+    def turn_left_n(self, n):
         """Make the drone rotate left."""
         for i in n:
             self.at(libardrone.at_pcmd, True, 0, 0, 0, -self.speed)
@@ -47,8 +48,16 @@ class Drone(libardrone.ARDrone):
         # self.move()
 
     def circle(self, R = 100):
-        #сделать круг радиусом R
-        pass
+        #radius R
+        number_iter=20
+        length = 2 * math.pi * R
+        i = 0
+        delta_length = length/number_iter
+        delta_angle = delta_length/R
+        while i < number_iter :
+            self.move_right_n(2*R*math.sin(delta_angle/2))
+            self.turn_left_n(delta_angle)
+            i = i + 1
 
     def go_to_XYZ(self):
         pass
