@@ -110,7 +110,7 @@ def main():
             screen.blit(surface, (0, 0))
             screen.blit(hud, (10, 10))
         except:
-            pass
+            pass    
 
         pygame.display.flip()
         clock.tick(50)
