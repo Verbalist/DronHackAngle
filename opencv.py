@@ -16,7 +16,7 @@ def detect(img, cascade):
   #haarcascade_frontalface_alt.xml
   #haarcascade_fullbody.xml
 def detect_faces(img):
-  cascade = cv2.CascadeClassifier("haarcascade_fullbody.xml")
+  cascade = cv2.CascadeClassifier("haarcascade_frontalface_alt.xml")
   return detect(img, cascade)
   
 def to_grayscale(img):
