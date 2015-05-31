@@ -3,6 +3,8 @@ __author__ = 'dima'
 import libardrone
 import pygame
 import move
+import time
+import cv2
 
 f = open('log.txt','a\n')
 
@@ -11,11 +13,21 @@ W, H = 320, 240
 screen = pygame.display.set_mode((W, H))
 clock = pygame.time.Clock()
 
+
 # drone = move.Drone(clock)
 drone = move.Drone(clock)
 # drone.reset()
 # drone.takeoff()
 
+drone.useDemoMode(True)                            # Set 15 basic dataset/sec
+
+##### Mainprogram begin #####
+drone.setConfigAllID()                              # Go to multiconfiguration-mode
+drone.sdVideo()                                     # Choose lower resolution (try hdVideo())
+drone.frontCam()                                    # Choose front view
+CDC = drone.ConfigDataCount
+while CDC==drone.ConfigDataCount: time.sleep(0.001) # Wait until it is done (after resync)
+drone.startVideo()                                  # Start video-function                                  # Display the video
 
 def move_in_m(drone, count, clock):
     i = 0
@@ -26,6 +38,7 @@ def move_in_m(drone, count, clock):
 
 
 running = True
+iter = 0
 while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -89,6 +102,12 @@ while running:
                 if event.key == pygame.K_b:
                     print('rotation')
                     drone.back_circle()
+                if event.key == pygame.K_p:
+                    print('image has been saved')
+                    frame = drone.getImage()
+                    img_process(frame)
+                    i+=1
+                    cv2.imwrite('test'+ i +'.jpeg', frame)
 
 #<<<<<<< Updated upstream:python-ardrone-master/main.py
         # try:

@@ -93,8 +93,16 @@ class Drone(object):
 		self.__pYellowStr = 			"\033[93m"
 		self.__pBlueStr = 				"\033[94m"
 		self.__pPurpleStr = 			"\033[95m"
-		self.__pLineUpStr = 			"\033[1A"
+		self._show_pLineUpStr = 			"\033[1A"
 		
+	def getImage(self):
+		vPath = self.__VidPipePath
+		capture = 	cv2.VideoCapture(vPath)
+		success, image = 	capture.read()
+		return image
+		##################################
+		#img_process(image)
+
 	###### Connect to the drone and start all procedures
 	def startup(self):
 		# Check for drone in the network and wake it up
@@ -1007,12 +1015,14 @@ def vCapture(VidPipePath, parent_pipe):
 	codecOK = 		False
 	lastKey =		""
 	cc=0
-
+	'''
 	while not commitsuicideV:
 		decTimeRev = 		time.time()
 		receiveWatchdog = threading.Timer(2.0, VideoReceiveWatchdog, [parent_pipe,"vCapture", debugV])	# Resets video if something hangs
 		receiveWatchdog.start()
 		success, image = 	capture.read()
+		##################################
+		#img_process(image)
 		cc+=1
 		receiveWatchdog.cancel()
 		decTime =			decTimeRev-time.time()
@@ -1058,7 +1068,7 @@ def vCapture(VidPipePath, parent_pipe):
 	cv2.destroyAllWindows()
 	capture.release()
 	if debugV:	print "vCapture-Thread :    committed suicide"
-
+	'''
 ### Process to decode the videostream in the FIFO-Pipe, stored there from main-loop.
 # Storing and decoding must not be processed in the same process, thats why decoding is external.
 # vDecode controls the vCapture-thread which captures and decodes finally the videostream.
