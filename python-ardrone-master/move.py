@@ -35,20 +35,20 @@ class Drone(ps_drone.Drone):
         """ radius R """
         for i in range(6):
             # drone.move(0.1, 0.02, 0, 0)
-            self.move(0.1, 0.05, 0, -0.35)
+            self.move(0.1, 0.05, 0, -0.3)
             print('f')
             time.sleep(0.8)
 
     def spiral(self, R=100, alt=100):
         for i in range(6):
             # drone.move(0.1, 0.02, 0, 0)
-            self.move(0.1, 0.03, 0.04, -0.35)
+            self.move(0.1, 0.03, 0.04, -0.3)
             time.sleep(0.8)
 
     def back_circle(self):
         for i in range(6):
             # drone.move(0.1, 0.02, 0, 0)
-            self.move(-0.1, 0.03, 0, 0.35)
+            self.move(-0.1, 0.03, 0, 0.3)
             print('b')
             time.sleep(0.8)
 
