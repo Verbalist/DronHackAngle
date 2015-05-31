@@ -11,9 +11,11 @@ W, H = 320, 240
 screen = pygame.display.set_mode((W, H))
 clock = pygame.time.Clock()
 
-drone = move.Drone()
-drone.reset()
-drone.takeoff()
+# drone = move.Drone(clock)
+drone = move.Drone(clock)
+# drone.reset()
+# drone.takeoff()
+
 
 def move_in_m(drone, count, clock):
     i = 0
@@ -34,13 +36,13 @@ while running:
                     drone.land()
                     f.write('land\n')
                 if event.key == pygame.K_UP:
-                    drone.move_up()
+                    drone.moveUp()
                     f.write('move_up\n')
                 if event.key == pygame.K_ESCAPE:
                     running = False
                     f.write('Exit\n')
                 if event.key == pygame.K_DOWN:
-                    drone.move_down()
+                    drone.moveDown()
                     f.write('move_down\n')
                 if event.key == pygame.K_1:
                     move_in_m(drone, 10, clock)
@@ -51,32 +53,42 @@ while running:
                 if event.key == pygame.K_RETURN:
                     drone.takeoff()
                     f.write('takeoff\n')
-                if event.key == pygame.K_LCTRL:
-                    drone.reset()
-                    f.write('reset\n')
-                if event.key == pygame.K_w:
-                    drone.move_forward()
+                    print('take off')
+                # if event.key == pygame.K_LCTRL:
+                #     drone.reset()
+                #     f.write('reset\n')
                     f.write('forward\n')
                 if event.key == pygame.K_s:
-                    drone.move_backward()
+                    drone.moveBackward()
                     f.write('back\n')
                 if event.key == pygame.K_a:
-                    drone.move_left()
+                    drone.moveLeft()
                     f.write('left\n')
                 if event.key == pygame.K_d:
-                    drone.move_right()
+                    drone.moveRight()
                     f.write('right\n')
                 if event.key == pygame.K_w:
-                    drone.move_forward()
+                    drone.moveForward()
+                    f.write('forward\n')
                 if event.key == pygame.K_LEFT:
-                    drone.turn_left()
+                    drone.turnLeft()
                     f.write('left\n')
                 if event.key == pygame.K_RIGHT:
-                    drone.turn_right()
+                    drone.turnRight()
                     f.write('right\n')
                 if event.key == pygame.K_LCTRL:
-                    bat = drone.navdata.get(0, dict()).get('battery', 0)
-                    f.write(bat)
+                    bat = drone.getBattery()
+                    f.write(str(bat))
+                    print(bat)
+                if event.key == pygame.K_q:
+                    print('rotation')
+                    drone.circle()
+                if event.key == pygame.K_e:
+                    print('rotation')
+                    drone.spiral()
+                if event.key == pygame.K_b:
+                    print('rotation')
+                    drone.back_circle()
 
 #<<<<<<< Updated upstream:python-ardrone-master/main.py
         # try:
@@ -85,34 +97,35 @@ while running:
         # except:
         #     f.write('err\n')
 #=======
-                if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_1):
-                    drone.speed = 0.1
-                if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_2):
-                    drone.speed = 0.2
-                if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_3):
-                    drone.speed = 0.3
-                if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_4):
-                    drone.speed = 0.4
-                if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_5):
-                    drone.speed = 0.5
-                if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_6):
-                    drone.speed = 0.6
-                if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_7):
-                    drone.speed = 0.7
-                if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_8):
-                    drone.speed = 0.8
-                if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_9):
-                    drone.speed = 0.9
-                if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_0):
-                    drone.speed = 1.0
+                # if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_1):
+                #     drone.speed = 0.1
+                # if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_2):
+                #     drone.speed = 0.2
+                # if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_3):
+                #     drone.speed = 0.3
+                # if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_4):
+                #     drone.speed = 0.4
+                # if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_5):
+                #     drone.speed = 0.5
+                # if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_6):
+                #     drone.speed = 0.6
+                # if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_7):
+                #     drone.speed = 0.7
+                # if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_8):
+                #     drone.speed = 0.8
+                # if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_9):
+                #     drone.speed = 0.9
+                # if (event.key == pygame.KMOD_LCTRL and event.key == pygame.K_0):
+                #     drone.speed = 1.0
 
         try:
             clock.tick(50)
-
+            date = drone.getData()
+            f.write(str(date) + '\n')
         except:
             f.write('err\n')
 #>>>>>>> Stashed changes:python-ardrone-master/main.py
 
 #end demonstration
 drone.land()
-drone.halt()
+# drone.halt()
